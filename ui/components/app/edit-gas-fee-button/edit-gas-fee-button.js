@@ -16,6 +16,7 @@ import Typography from '../../ui/typography/typography';
 export default function EditGasFeeButton({ userAcknowledgedGasMissing }) {
   const t = useI18nContext();
   const {
+    captureTransactionMetrics,
     editGasMode,
     gasLimit,
     hasSimulationError,
@@ -46,9 +47,25 @@ export default function EditGasFeeButton({ userAcknowledgedGasMissing }) {
     title = 'tenPercentIncreased';
   }
 
+  const openEditGasFeeModal = () => {
+    captureTransactionMetrics({
+      action: 'Confirm Screen',
+      name: 'Clicked on Edit Gas',
+    });
+    openModal('editGasFee');
+  };
+
+  const openAdvanceGasFeeModal = () => {
+    captureTransactionMetrics({
+      action: 'Confirm Screen',
+      name: 'Clicked Advanced Options',
+    });
+    openModal('advancedGasFee');
+  };
+
   return (
     <div className="edit-gas-fee-button">
-      <button onClick={() => openModal('editGasFee')}>
+      <button onClick={openEditGasFeeModal}>
         {icon && (
           <span className="edit-gas-fee-button__icon">
             {`${PRIORITY_LEVEL_ICON_MAP[icon]} `}
@@ -58,7 +75,7 @@ export default function EditGasFeeButton({ userAcknowledgedGasMissing }) {
         <i className="fas fa-chevron-right asset-list-item__chevron-right" />
       </button>
       {estimateUsed === 'custom' && (
-        <button onClick={() => openModal('advancedGasFee')}>{t('edit')}</button>
+        <button onClick={openAdvanceGasFeeModal}>{t('edit')}</button>
       )}
       {estimateUsed === 'dappSuggested' && (
         <InfoTooltip

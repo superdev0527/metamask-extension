@@ -58,6 +58,16 @@ export const EDIT_GAS_MODES = {
 };
 
 /**
+ * These represent the different edit modes presented in the UI
+ */
+export const METRICS_TRANSACTION_TYPE = {
+  'speed-up': 'speed-up',
+  cancel: 'cancel',
+  'modify-in-place': 'regular',
+  swaps: 'swap',
+};
+
+/**
  * Represents levels for `networkCongestion` (calculated along with gas fee
  * estimates; represents a number between 0 and 1) that we use to render the
  * network status slider on the send transaction screen and inform users when

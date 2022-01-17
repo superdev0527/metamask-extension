@@ -23,6 +23,7 @@ import { useMaxFeePerGasInput } from './useMaxFeePerGasInput';
 import { useMaxPriorityFeePerGasInput } from './useMaxPriorityFeePerGasInput';
 import { useGasEstimates } from './useGasEstimates';
 import { useTransactionFunctions } from './useTransactionFunctions';
+import { useTransactionMetrics } from './useTransactionMetrics';
 
 /**
  * In EIP_1559_V2 implementation as used by useGasfeeInputContext() the use of this hook is evolved.
@@ -316,6 +317,10 @@ export function useGasFeeInputs(
     setGasPriceHasBeenManuallySet,
   ]);
 
+  const { captureTransactionMetrics } = useTransactionMetrics({
+    transaction,
+  });
+
   return {
     transaction,
     maxFeePerGas,
@@ -358,6 +363,7 @@ export function useGasFeeInputs(
     cancelTransaction,
     speedUpTransaction,
     updateTransaction,
+    captureTransactionMetrics,
     updateTransactionToTenPercentIncreasedGasFee,
     updateTransactionUsingDAPPSuggestedValues,
     updateTransactionUsingEstimate,

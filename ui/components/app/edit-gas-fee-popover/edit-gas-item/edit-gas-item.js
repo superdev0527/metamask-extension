@@ -40,6 +40,7 @@ const getTitleAndIcon = (priorityLevel, editGasMode) => {
 
 const EditGasItem = ({ priorityLevel }) => {
   const {
+    captureTransactionMetrics,
     editGasMode,
     estimateUsed,
     gasLimit,
@@ -71,6 +72,10 @@ const EditGasItem = ({ priorityLevel }) => {
 
   const onOptionSelect = () => {
     if (priorityLevel === PRIORITY_LEVELS.CUSTOM) {
+      captureTransactionMetrics({
+        action: 'Edit gas fee modal',
+        name: 'Clicked Advanced Options',
+      });
       openModal('advancedGasFee');
     } else {
       closeModal('editGasFee');

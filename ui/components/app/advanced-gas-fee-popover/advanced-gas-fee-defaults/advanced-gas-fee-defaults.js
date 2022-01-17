@@ -12,6 +12,7 @@ import {
 } from '../../../../helpers/constants/design-system';
 import { getAdvancedGasFeeValues } from '../../../../selectors';
 import { setAdvancedGasFee } from '../../../../store/actions';
+import { useGasFeeContext } from '../../../../contexts/gasFee';
 
 import { useAdvancedGasFeePopoverContext } from '../context';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
@@ -25,27 +26,32 @@ const AdvancedGasFeeDefaults = () => {
     maxBaseFee,
     maxPriorityFeePerGas,
   } = useAdvancedGasFeePopoverContext();
+  const { captureTransactionMetrics } = useGasFeeContext();
   const advancedGasFeeValues = useSelector(getAdvancedGasFeeValues);
 
-  const updateDefaultSettings = (value) => {
-    if (value) {
-      dispatch(
-        setAdvancedGasFee({
-          maxBaseFee,
-          priorityFee: maxPriorityFeePerGas,
-        }),
-      );
-    } else {
-      dispatch(setAdvancedGasFee(null));
-    }
-  };
   const isDefaultSettingsSelected =
     Boolean(advancedGasFeeValues) &&
     advancedGasFeeValues.maxBaseFee === maxBaseFee &&
     advancedGasFeeValues.priorityFee === maxPriorityFeePerGas;
 
-  const handleUpdateDefaultSettings = () =>
-    updateDefaultSettings(!isDefaultSettingsSelected);
+  const handleUpdateDefaultSettings = () => {
+    if (isDefaultSettingsSelected) {
+      dispatch(setAdvancedGasFee(null));
+    } else {
+      const defaults = {
+        maxBaseFee,
+        priorityFee: maxPriorityFeePerGas,
+      };
+      captureTransactionMetrics({
+        action: 'Advance gas fee modal',
+        name: 'Saved Advanced Defaults',
+        variables: {
+          defaults,
+        },
+      });
+      dispatch(setAdvancedGasFee(defaults));
+    }
+  };
 
   return (
     <Box
