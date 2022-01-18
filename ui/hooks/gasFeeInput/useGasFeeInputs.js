@@ -252,6 +252,10 @@ export function useGasFeeInputs(
     }
   }, [minimumGasLimit, gasErrors.gasLimit, transaction]);
 
+  const { captureTransactionMetrics } = useTransactionMetrics({
+    transaction,
+  });
+
   const {
     cancelTransaction,
     speedUpTransaction,
@@ -260,6 +264,7 @@ export function useGasFeeInputs(
     updateTransactionUsingDAPPSuggestedValues,
     updateTransactionUsingEstimate,
   } = useTransactionFunctions({
+    captureTransactionMetrics,
     defaultEstimateToUse,
     editGasMode,
     gasFeeEstimates,
@@ -316,10 +321,6 @@ export function useGasFeeInputs(
     maxPriorityFeePerGas,
     setGasPriceHasBeenManuallySet,
   ]);
-
-  const { captureTransactionMetrics } = useTransactionMetrics({
-    transaction,
-  });
 
   return {
     transaction,

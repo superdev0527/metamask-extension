@@ -16,6 +16,7 @@ import {
 } from '../../store/actions';
 
 export const useTransactionFunctions = ({
+  captureTransactionMetrics,
   defaultEstimateToUse,
   editGasMode,
   estimatedBaseFee,
@@ -96,20 +97,34 @@ export const useTransactionFunctions = ({
   );
 
   const cancelTransaction = useCallback(() => {
+    const { maxFeePerGas, maxPriorityFeePerGas } = transaction.txParams;
+    captureTransactionMetrics({
+      action: 'Cancel / Speed-Up Transaction',
+      name: `Gas Canceled`,
+      variables: { maxFeePerGas, maxPriorityFeePerGas },
+    });
+
     dispatch(
       createCancelTransaction(transaction.id, transaction.txParams, {
         estimatedBaseFee,
       }),
     );
-  }, [dispatch, estimatedBaseFee, transaction]);
+  }, [captureTransactionMetrics, dispatch, estimatedBaseFee, transaction]);
 
   const speedUpTransaction = useCallback(() => {
+    const { maxFeePerGas, maxPriorityFeePerGas } = transaction.txParams;
+    captureTransactionMetrics({
+      action: 'Cancel / Speed-Up Transaction',
+      name: `Gas Speed-Up`,
+      variables: { maxFeePerGas, maxPriorityFeePerGas },
+    });
+
     dispatch(
       createSpeedUpTransaction(transaction.id, transaction.txParams, {
         estimatedBaseFee,
       }),
     );
-  }, [dispatch, estimatedBaseFee, transaction]);
+  }, [captureTransactionMetrics, dispatch, estimatedBaseFee, transaction]);
 
   const updateTransactionToTenPercentIncreasedGasFee = useCallback(() => {
     const { gas: gasLimit, maxFeePerGas, maxPriorityFeePerGas } =
