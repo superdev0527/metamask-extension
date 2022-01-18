@@ -76,8 +76,19 @@ const EditGasItem = ({ priorityLevel }) => {
         action: 'Edit gas fee modal',
         name: 'Clicked Advanced Options',
       });
+
       openModal('advancedGasFee');
     } else {
+      captureTransactionMetrics({
+        action: 'Edit gas fee modal',
+        name: 'Gas Fee Changed',
+        variables: {
+          estimateSelected: priorityLevel,
+          maxFeePerGas,
+          maxPriorityFeePerGas,
+        },
+      });
+
       closeModal('editGasFee');
 
       if (priorityLevel === PRIORITY_LEVELS.TEN_PERCENT_INCREASED) {
