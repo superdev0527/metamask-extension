@@ -42,7 +42,8 @@ const AdvancedGasFeeGasLimit = () => {
     if (!initialGasValues.gasLimit) {
       updateInitialGasValue({ gasLimit });
     }
-  }, [gasLimit, initialGasValues, updateInitialGasValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setGasLimitInContext(gasLimit);

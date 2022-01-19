@@ -96,7 +96,8 @@ const BaseFeeInput = () => {
     if (!initialGasValues.maxFeePerGas) {
       updateInitialGasValue({ maxFeePerGas: baseFee });
     }
-  }, [baseFee, initialGasValues, updateInitialGasValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setMaxFeePerGas(baseFee);

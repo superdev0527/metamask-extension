@@ -103,7 +103,8 @@ const PriorityFeeInput = () => {
     if (!initialGasValues.maxPriorityFeePerGas) {
       updateInitialGasValue({ maxPriorityFeePerGas: priorityFee });
     }
-  }, [priorityFee, initialGasValues, updateInitialGasValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box margin={[0, 2]}>
