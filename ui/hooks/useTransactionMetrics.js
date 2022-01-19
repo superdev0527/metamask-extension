@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 
-import { MetaMetricsContext } from '../../contexts/metametrics';
+import { useGasFeeContext } from '../contexts/gasFee';
+import { MetaMetricsContext } from '../contexts/metametrics';
 
-export const useTransactionMetrics = ({ transaction }) => {
+export const useTransactionMetrics = () => {
+  const { transaction } = useGasFeeContext();
   const metricsEvent = useContext(MetaMetricsContext);
   const { origin, type } = transaction;
 
@@ -23,7 +25,20 @@ export const useTransactionMetrics = ({ transaction }) => {
     });
   };
 
+  const captureTransactionMetricsForEIP1559V2 = ({
+    action,
+    name,
+    variables,
+  }) => {
+    captureTransactionMetrics({
+      action,
+      name,
+      variables: { ...variables, EIP_1559_V2: true },
+    });
+  };
+
   return {
     captureTransactionMetrics,
+    captureTransactionMetricsForEIP1559V2,
   };
 };
