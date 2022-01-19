@@ -19,7 +19,6 @@ export const useTransactionMetrics = () => {
         origin,
         transaction_type: type,
         source: origin === 'metamask' ? 'user' : 'dapp',
-        EIP_1559_V2: true,
         ...variables,
       },
     });
