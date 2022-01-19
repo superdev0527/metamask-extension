@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   EDIT_GAS_MODES,
@@ -24,7 +24,7 @@ const EditGasToolTip = ({
   transaction,
   t,
 }) => {
-  const toolTipMessage = () => {
+  const toolTipMessage = useMemo(() => {
     switch (priorityLevel) {
       case PRIORITY_LEVELS.LOW:
         return t('lowGasSettingToolTipMessage', [
@@ -76,7 +76,8 @@ const EditGasToolTip = ({
       default:
         return '';
     }
-  };
+  }, [editGasMode, estimateGreaterThanGasUse, priorityLevel, transaction, t]);
+
   return (
     <div className="edit-gas-tooltip__container">
       {priorityLevel !== PRIORITY_LEVELS.CUSTOM &&
@@ -97,9 +98,11 @@ const EditGasToolTip = ({
           </Typography>
         </div>
       ) : null}
-      <div className="edit-gas-tooltip__container__message">
-        <Typography variant={TYPOGRAPHY.H7}>{toolTipMessage()}</Typography>
-      </div>
+      {toolTipMessage && (
+        <div className="edit-gas-tooltip__container__message">
+          <Typography variant={TYPOGRAPHY.H7}>{toolTipMessage}</Typography>
+        </div>
+      )}
       {priorityLevel === PRIORITY_LEVELS.CUSTOM ||
       estimateGreaterThanGasUse ? null : (
         <div className="edit-gas-tooltip__container__values">
