@@ -114,13 +114,15 @@ const EditGasToolTip = ({
             >
               {t('maxBaseFee')}
             </Typography>
-            <Typography
-              variant={TYPOGRAPHY.H7}
-              color={COLORS.NEUTRAL_GREY}
-              className="edit-gas-tooltip__container__value"
-            >
-              {maxFeePerGas}
-            </Typography>
+            {maxFeePerGas && (
+              <Typography
+                variant={TYPOGRAPHY.H7}
+                color={COLORS.NEUTRAL_GREY}
+                className="edit-gas-tooltip__container__value"
+              >
+                {maxFeePerGas}
+              </Typography>
+            )}
           </div>
           <div>
             <Typography
@@ -130,13 +132,15 @@ const EditGasToolTip = ({
             >
               {t('priorityFeeProperCase')}
             </Typography>
-            <Typography
-              variant={TYPOGRAPHY.H7}
-              color={COLORS.NEUTRAL_GREY}
-              className="edit-gas-tooltip__container__value"
-            >
-              {maxPriorityFeePerGas}
-            </Typography>
+            {maxPriorityFeePerGas && (
+              <Typography
+                variant={TYPOGRAPHY.H7}
+                color={COLORS.NEUTRAL_GREY}
+                className="edit-gas-tooltip__container__value"
+              >
+                {maxPriorityFeePerGas}
+              </Typography>
+            )}
           </div>
           <div>
             <Typography
@@ -146,13 +150,15 @@ const EditGasToolTip = ({
             >
               {t('gasLimit')}
             </Typography>
-            <Typography
-              variant={TYPOGRAPHY.H7}
-              color={COLORS.NEUTRAL_GREY}
-              className="edit-gas-tooltip__container__value"
-            >
-              {gasLimit}
-            </Typography>
+            {gasLimit && (
+              <Typography
+                variant={TYPOGRAPHY.H7}
+                color={COLORS.NEUTRAL_GREY}
+                className="edit-gas-tooltip__container__value"
+              >
+                {gasLimit}
+              </Typography>
+            )}
           </div>
         </div>
       )}
