@@ -108,6 +108,7 @@ const PriorityFeeInput = () => {
   return (
     <Box margin={[0, 2]}>
       <FormField
+        dataTestId="priority-fee-input"
         error={priorityFeeError ? t(priorityFeeError) : ''}
         onChange={updatePriorityFee}
         titleText={t('priorityFeeProperCase')}

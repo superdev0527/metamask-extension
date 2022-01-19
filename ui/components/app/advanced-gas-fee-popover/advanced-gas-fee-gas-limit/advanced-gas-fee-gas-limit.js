@@ -53,6 +53,7 @@ const AdvancedGasFeeGasLimit = () => {
   if (isEditing) {
     return (
       <FormField
+        dataTestId="gas-limit-input"
         error={
           gasLimitError
             ? t(gasLimitError, [minimumGasLimitDec - 1, MAX_GAS_LIMIT_DEC])
@@ -78,6 +79,7 @@ const AdvancedGasFeeGasLimit = () => {
       </strong>
       <span>{gasLimit}</span>
       <Button
+        data-testid="advanced-gas-fee-edit"
         className="advanced-gas-fee-gas-limit__edit-link"
         onClick={() => setEditing(true)}
         type="link"
